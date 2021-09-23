@@ -29,7 +29,7 @@ func main() {
 			})
 		})
 		// api.POST("/postInfo", controller.postInfo)
-		// api.GET("/getHappinessList", controller.getHappinessList)
+		api.GET("/getHappinessList", controller.getHappinessList)
 	}
 
 	router.Run()
