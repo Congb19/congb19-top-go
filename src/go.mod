@@ -1,4 +1,4 @@
-module github.com/congb19/congb19-top-go
+module main
 
 go 1.17
 
