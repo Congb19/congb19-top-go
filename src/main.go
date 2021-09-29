@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/congb19/congb19-top-go/src/controller"
 	"github.com/gin-gonic/gin"
-	"main/controller"
 )
 
 const (
@@ -30,7 +30,7 @@ func main() {
 			})
 		})
 		// api.POST("/postInfo", controller.postInfo)
-		api.GET("/getHappinessList", controller.getHappinessList)
+		api.GET("/getHappinessList", controller.GetHappinessList)
 	}
 
 	router.Run()

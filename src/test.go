@@ -1,4 +1,4 @@
-package test
+package main
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 var ga int  = 123
 var gb = 123
 
-func main() {
+func test() {
 	fmt.Println("start");
 	var a string = "123"
 	var b int = 2
