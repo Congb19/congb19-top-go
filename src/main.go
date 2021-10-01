@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/congb19/congb19-top-go/src/controller"
+	"github.com/congb19/congb19-top-go/src/handler"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,12 +20,15 @@ func main() {
 	// r.Run() // listen and serve on 0.0.0.0:8080
 	gin.SetMode(gin.DebugMode)
 
+	// DB
+	handler.InitDB();
+
 	// router
 	router := gin.New();
 
 	api := router.Group("/api")
 	{
-		api.GET("/", func(c *gin.Context) {
+		api.GET("/test", func(c *gin.Context) {
 			c.JSON(200, gin.H{
 				"message": "Hello GO!",
 			})

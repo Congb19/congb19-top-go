@@ -1,11 +1,15 @@
 package model
 
+import (
+	"time"
+
+	_ "github.com/go-sql-driver/mysql"
+)
 type kbn_goods struct {
-	id           string `gorm:"primaryKey;comment:证件号;size:20"`
-	floor        string `gorm:"not null;uniqueIndex;comment:学号;size:20"`
-	show         bool
-	author_name  string
-	contact_info string
-	content      string
-	created_time string
+	id           uint `gorm:"not null; primaryKey; comment:id;"`
+	floor        int `gorm:"not null; uniqueIndex; comment:楼层号; AUTO_INCREMENT;"`
+	show         bool `gorm:"not null; default: true; comment:是否展示;"`
+	author_id  	 int `gorm:"not null; comment:作者id;"` // 外键 关联users
+	content      string `gorm:"not null; comment:内容;"`
+	created_time time.Time
 }
