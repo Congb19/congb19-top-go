@@ -11,13 +11,6 @@ const (
 )
 
 func main() {
-	// r := gin.Default()
-	// r.GET("/", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{
-	// 		"message": "Hello world!",
-	// 	})
-	// })
-	// r.Run() // listen and serve on 0.0.0.0:8080
 	gin.SetMode(gin.DebugMode)
 
 	// DB
@@ -30,11 +23,12 @@ func main() {
 	{
 		api.GET("/test", func(c *gin.Context) {
 			c.JSON(200, gin.H{
-				"message": "Hello GO!",
+				"message": "Hello GO !",
 			})
 		})
 		// api.POST("/postInfo", controller.postInfo)
 		api.GET("/getHappinessList", controller.GetHappinessList)
+		api.GET("/getClubs", controller.GetClubs)
 	}
 
 	router.Run()
