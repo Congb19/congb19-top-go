@@ -1,2 +1,4 @@
-pkg/*
-bin/*
+
+/bin/
+/pkg/
+/src/pkg/

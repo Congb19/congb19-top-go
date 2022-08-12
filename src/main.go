@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/congb19/congb19-top-go/src/controller"
-	"github.com/congb19/congb19-top-go/src/handler"
+	"congb19-top-go/src/controller"
+	"congb19-top-go/src/handler"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,10 +21,10 @@ func main() {
 	gin.SetMode(gin.DebugMode)
 
 	// DB
-	handler.InitDB();
+	handler.InitDB()
 
 	// router
-	router := gin.New();
+	router := gin.New()
 
 	api := router.Group("/api")
 	{
