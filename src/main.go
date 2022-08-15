@@ -3,7 +3,9 @@ package main
 import (
 	"congb19-top-go/src/controller"
 	"congb19-top-go/src/handler"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
 const (
@@ -12,6 +14,15 @@ const (
 
 func main() {
 	gin.SetMode(gin.DebugMode)
+
+	// get config
+	viper.SetConfigName("config")
+	viper.SetConfigType("json")
+	viper.AddConfigPath("./")   // 配置文件的路径
+	err := viper.ReadInConfig() //找到并读取配置文件
+	if err != nil {             // 捕获读取中遇到的error
+		panic(fmt.Errorf("Fatal error config file: %w \n", err))
+	}
 
 	// DB
 	handler.InitDB()
