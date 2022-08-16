@@ -28,10 +28,13 @@ func InitDB() {
 	}
 	data.DB.SingularTable(true)
 	data.DB.AutoMigrate(&model.Persons{})
-	data.DB.AutoMigrate(&model.Users{})
+
 	data.DB.AutoMigrate(&model.Clubs{})
 	data.DB.AutoMigrate(&model.Tools{})
 	data.DB.AutoMigrate(&model.Articles{})
+	//data.DB.AutoMigrate(&model.Pins{})
+
+	data.DB.AutoMigrate(&model.Users{})
 
 	//data.DB.Create(&model.Persons{Id: 3, LastName: "test", FirstName: "test", Address: "test", City: "test"})
 

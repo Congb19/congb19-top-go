@@ -10,6 +10,7 @@ type Clubs struct {
 }
 type Tools struct {
 	gorm.Model
+	ClubId    uint   `gorm:"not null"`
 	Title     string `gorm:"size:20;not null"`
 	ImgSrc    string `gorm:"size:255;not null"` // logo图片
 	ValidFlag bool   `gorm:"not null"`
