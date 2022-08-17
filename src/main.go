@@ -83,5 +83,5 @@ func main() {
 		api.GET("/getArticles", controller.GetArticles)
 	}
 
-	router.Run()
+	router.Run(":8003")
 }
