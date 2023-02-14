@@ -10,9 +10,9 @@ import (
 	"net/http"
 )
 
-const (
-	version = "v1.0.0"
-)
+//const (
+//	version = "v1.0.0"
+//)
 
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -24,7 +24,7 @@ func Cors() gin.HandlerFunc {
 			//服务器支持的所有跨域请求的方法
 			c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE,UPDATE")
 			//允许跨域设置可以返回其他子段，可以自定义字段
-			c.Header("Access-Control-Allow-Headers", "Authorization, Content-Length, X-CSRF-Token, Token,session")
+			c.Header("Access-Control-Allow-Headers", "Authorization, Content-Length, X-CSRF-Token, Token, session, Content-Type")
 			// 允许浏览器（客户端）可以解析的头部 （重要）
 			c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers")
 			//设置缓存时间
@@ -66,22 +66,30 @@ func main() {
 	router := gin.New()
 	router.Use(Cors())
 
-	api := router.Group("/api/public")
+	app := router.Group("/api/app")
 	{
-
-		api.GET("/test", func(c *gin.Context) {
+		app.GET("/test", func(c *gin.Context) {
 			c.JSON(200, gin.H{
 				"message": "Hello GO !",
 			})
 		})
-		api.GET("/getHappinessList", controller.GetHappinessList)
+		app.GET("/getHappinessList", controller.GetHappinessList)
 		// api.POST("/postInfo", controller.postInfo)
 
-		api.GET("/getClubs", controller.GetClubs)
-		api.GET("/getTools", controller.GetTools)
-		api.GET("/getPins", controller.GetPins)
-		api.GET("/getArticles", controller.GetArticles)
+		app.GET("/getClubs", controller.GetClubs)
+		app.GET("/getTools", controller.GetTools)
+		app.GET("/getPins", controller.GetPins)
+		app.GET("/getArticles", controller.GetArticles)
+	}
+	kbn := router.Group("/api/kbn")
+	{
+		kbn.GET("/getHappinessList", controller.GetHappinessList)
+		kbn.POST("/postKbn", controller.PostKbn)
+
 	}
 
-	router.Run(":8003")
+	err = router.Run(":8003")
+	if err != nil {
+		return
+	}
 }
