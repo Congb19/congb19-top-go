@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
+	"github.com/unrolled/secure"
 	"log"
 	"net/http"
 )
@@ -47,6 +48,22 @@ func Cors() gin.HandlerFunc {
 		c.Next()
 	}
 }
+
+func loadTls() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		middleware := secure.New(secure.Options{
+			SSLRedirect: true,
+			SSLHost:     "localhost: 8003",
+		})
+		err := middleware.Process(c.Writer, c.Request)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		c.Next()
+	}
+}
+
 func main() {
 	gin.SetMode(gin.DebugMode)
 
@@ -65,14 +82,16 @@ func main() {
 	// router
 	router := gin.New()
 	router.Use(Cors())
-
-	app := router.Group("/api/app")
+	test := router.Group("")
 	{
-		app.GET("/test", func(c *gin.Context) {
+		test.GET("/", func(c *gin.Context) {
 			c.JSON(200, gin.H{
 				"message": "Hello GO !",
 			})
 		})
+	}
+	app := router.Group("/api/app")
+	{
 		app.GET("/getHappinessList", controller.GetHappinessList)
 		// api.POST("/postInfo", controller.postInfo)
 
@@ -88,8 +107,13 @@ func main() {
 
 	}
 
+	// 开发环境下使用http
 	err = router.Run(":8003")
-	if err != nil {
-		return
-	}
+
+	// 部署时使用https
+	//router.Use(loadTls())
+	//err = router.RunTLS(":8003", "./fullchain.pem", "./privkey.key")
+	//if err != nil {
+	//	return
+	//}
 }
